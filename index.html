@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sana Bir Sürprizim Var 🤍</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Trebuchet MS", sans-serif;
+  background: linear-gradient(145deg,#ffe5f0,#ffc8df,#fff0f6);
+  color: #873d61;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px 14px;
+}
+.card {
+  width: 100%;
+  max-width: 440px;
+  background: rgba(255,255,255,.88);
+  border: 2px solid white;
+  border-radius: 28px;
+  padding: 28px 21px;
+  text-align: center;
+  box-shadow: 0 12px 35px #c45c8c2b;
+}
+.small {
+  font-size: 13px;
+  letter-spacing: 2px;
+  color: #c16b91;
+}
+h1 { font-size: 27px; margin: 12px 0; }
+#question {
+  font-size: 20px;
+  line-height: 1.7;
+  margin: 22px 0;
+}
+.buttons { display: grid; gap: 12px; }
+button {
+  border: 0;
+  border-radius: 17px;
+  padding: 14px 12px;
+  font-size: 16px;
+  font-weight: bold;
+  background: #f6c0d8;
+  color: #783654;
+  cursor: pointer;
+}
+button:active { transform: scale(.97); }
+button:hover { background: #f1a9ca; }
+#progress {
+  font-size: 13px;
+  color: #b56b8b;
+  margin-top: 20px;
+}
+#final { display: none; text-align: left; }
+#letter {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  line-height: 1.85;
+  font-size: 15px;
+}
+#restart { width: 100%; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<main class="card">
+  <section id="quiz">
+    <div class="small">SADECE SANA ÖZEL 🤍</div>
+    <h1>Minik bir sürpriz 🤍</h1>
+    <p id="question"></p>
+    <div class="buttons" id="buttons"></div>
+    <div id="progress"></div>
+  </section>
+
+  <section id="final">
+    <div class="small" style="text-align:center">SON BİR ŞEY VAR 🤍</div>
+    <h1 style="text-align:center">Birtanem 🤍</h1>
+    <div id="letter"></div>
+    <button id="restart" onclick="restart()">Baştan oku 🤍</button>
+  </section>
+</main>
+
+<script>
+const questions = [
+  {
+    q: "Hop birtanem ben geldim, hoşgelmiş miyim?",
+    a: ["Gelmişsin", "Gelmemişsin"]
+  },
+  {
+    q: "Öncelikle seni çok seviyom, bilir miydin?",
+    a: ["Biliyom", "Yeni öğrendim"]
+  },
+  {
+    q: "Neyse artık biliyon... Bu nihale beraber girelim mi boydan?",
+    a: ["Girelim", "Yazık len yazık"]
+  },
+  {
+    q: "Yazık diyosan değil, gözlüğünü sokalım ona beraber.",
+    a: ["Tamam", "Tamammm"]
+  },
+  {
+    q: "Geç bunları, şimdi o gözünün çisi bidaha gelmicek, tmmı?",
+    a: ["Tmm", "Tmm aşkım (🫰🏿)"]
+  },
+  {
+    q: "Gereksiz mahlukatlar için ASLA TMMI?",
+    a: ["Tmm", "Tmm aşkımm"]
+  },
+  {
+    q: "SÖZÜNÜZÜ ALABİLİR MİYİM?",
+    a: ["Alabilirsin", "Bok ye sevmiyom seni 🖕🏿"]
+  },
+  {
+    q: "Bugün de yanında olamadığım için özür dilerim, öpimmi..😔",
+    a: ["Öp", "Öpme sosyal mesafe 🫰🏿"]
+  }
+];
+
+let current = 0;
+
+function showQuestion() {
+  document.getElementById("question").textContent =
+    questions[current].q;
+
+  const buttons = document.getElementById("buttons");
+  buttons.innerHTML = "";
+
+  questions[current].a.forEach(answer => {
+    const btn = document.createElement("button");
+    btn.textContent = answer;
+
+    btn.onclick = () => {
+      current++;
+      if (current < questions.length) {
+        showQuestion();
+      } else {
+        showFinal();
+      }
+    };
+
+    buttons.appendChild(btn);
+  });
+
+  document.getElementById("progress").textContent =
+    (current + 1) + " / " + questions.length;
+}
+
+function showFinal() {
+  document.getElementById("quiz").style.display = "none";
+  document.getElementById("final").style.display = "block";
+  document.getElementById("letter").textContent = finalMessage;
+  window.scrollTo(0, 0);
+}
+
+function restart() {
+  current = 0;
+  document.getElementById("final").style.display = "none";
+  document.getElementById("quiz").style.display = "block";
+  showQuestion();
+  window.scrollTo(0, 0);
+}
+
+const finalMessage = `Şimdi birtanem benim güzelim hayatımın anlamı yaşama sebebim göz yaşlarını yedigim cicibebem 🤍
+
+simdi bazen kötü zamanlar geciriyon üzülüyon üzüyolar ben yanında olamıyom aglamanda gayet normal cok geldiler üstüne biliyom nihalin amina civi sokam nys tövbe amk bi kere biz senin calıstıgını görüyoruz biliyoruz o amcik dört göz gözlükten kör oldugu icin bilmiyo etmiyo üzerine geliyo sallıyoda sallıyo moralini sikiyo biliyom ama sen onun dediklerini artık siklemicen o da zaten bisey demez artık umarım ne dicekse diyo zaten dicegini sana yasattıklarını cocuguda yaşasın gider onu teselli eder anlar vicdan azabı ceker insallah amin tövbe dedittirme hic amin ama agladıgında kendini yalnız hissetme tmmı yani o zamanlar yanında olamıyom ama seni kendimden cok seviyom daha fazlasını istiyoz yani dibinde olmak fln anlarsin 🫰🏿 seni düsündügümğ aklımdan hic cıkmadıgını ve cok sevdigimi bil tmm o gülüsünü birtanemi 32 dis olanı geri istiyorum hak hukuk adalet die bagırırım yoksa faizli borc gibi gülüşünü geri alıcam tmm 🫰🏿🤍`;
+
+showQuestion();
+</script>
+</body>
+</html>
